@@ -3,6 +3,12 @@
 @import url("https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Istok+Web&display=swap");
 
+:root {
+    --main-color: #df2020;
+    --secondary-color: #212245;
+    --background-color: #fde4e4;
+}
+
 /* reset default style */
 
 * {
