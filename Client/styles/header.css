@@ -1,0 +1,77 @@
+header {
+    height: 100px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+header .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* LOGO */
+
+header .logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header .logo img {
+    width: 60px;
+}
+
+header .logo .logo-name {
+    font-weight: bold;
+}
+
+/* HEADER MENU */
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* RIGHT HEADER */
+
+header .right-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+header .right-header .cart-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+header .right-header .cart-badge {
+    background-color: var(--main-color);
+    color: white;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    right: -10px;
+}
+
+header .right-header .logout {
+    cursor: pointer;
+    font-weight: bold;
+}

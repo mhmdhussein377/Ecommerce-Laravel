@@ -38,6 +38,13 @@ a {
     color: unset;
 }
 
+.container {
+    width: 100%;
+    max-width: 1340px;
+    margin: auto;
+    padding: 0 30px;
+}
+
 section {
     padding: 60px 0;
 }
