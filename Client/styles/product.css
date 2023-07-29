@@ -1,0 +1,230 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+select {
+    padding: 10px 20px;
+    font-size: 1rem;
+    outline: none;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border: none;
+}
+
+select option {
+    padding: 10px;
+    cursor: pointer !important;
+}
+
+.product-box {
+    background-color: var(--background-color);
+    padding: 20px;
+    width: 400px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-box .update-select,
+.product-box .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-box input {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #737373;
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+}
+
+.product-box button {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-box .img {
+    margin: auto;
+    text-align: center;
+}
+
+.product-box .img img {
+    width: 300px;
+    height: 300px;
+}
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.404);
+    padding: 0 20px;
+}
+
+.modal.hide {
+    display: none;
+}
+
+.modal .box {
+    background-color: red;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.modal .box h3 {
+    text-align: center;
+}
+
+.modal .box .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal .box .buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--background-color);
+    color: black;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}
+
+/* ABSOUTE BUTTONS */
+
+.absolute-buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+}
+
+.absolute-buttons .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.absolute-buttons button {
+    background-color: var(--main-color);
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.absolute-buttons .toggle-button {
+    display: none;
+    cursor: pointer;
+}
+
+.right-buttons-sm {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-color);
+}
+
+.right-buttons-sm.hide {
+    display: none;
+}
+
+.right-buttons-sm .close {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-color: black;
+    color: white;
+}
+
+.right-buttons-sm button {
+    background-color: transparent;
+    color: var(--main-color);
+    font-size: 1.875rem;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .absolute-buttons .toggle-button {
+        display: block;
+    }
+
+    .absolute-buttons .right {
+        display: none;
+    }
+}

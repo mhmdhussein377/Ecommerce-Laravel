@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../styles/main.css">
+    <link rel="stylesheet" href="./../styles/product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Product</title>
+</head>
+
+<body>
+    <div class="absolute-buttons">
+        <div class="back"><button>Back</button></div>
+        <div class="right">
+            <div><button>Categories</button></div>
+            <div><button>Create Product</button></div>
+        </div>
+        <div class="toggle-button">
+            <i class="fa-solid fa-bars fa-xl"></i>
+        </div>
+        <div class="right-buttons-sm hide">
+            <div class="close">X</div>
+            <div><button>Categories</button></div>
+            <div><button>Create Product</button></div>
+        </div>
+    </div>
+    <div class="product-box">
+        <div class="img"><img src="./../assets/product_01.jpg" alt=""></div>
+        <div><input placeholder="Name" type="text"></div>
+        <div><input placeholder="description" type="text"></div>
+        <div class="update-select">
+            <div><select class="dropdown" id="topics">
+                    <option>Value One</option>
+                    <option>Value Two</option>
+                    <option>Value Three</option>
+                    <option>Value One</option>
+                    <option>Value Two</option>
+                    <option>Value Three</option>
+                    <option>Value One</option>
+                    <option>Value Two</option>
+                    <option>Value Three</option>
+                    <option>Value One</option>
+                    <option>Value Two</option>
+                    <option>Value Three</option>
+                </select></div>
+            <div><button>Upload Image</button></div>
+        </div>
+        <div class="buttons">
+            <div><button>Update</button></div>
+            <div><button>Delete</button></div>
+        </div>
+    </div>
+    <div class="modal hide">
+        <div class="box">
+            <h3>Are you sure you want to delete the product?</h3>
+            <div class="buttons">
+                <div><button>Yes</button></div>
+                <div><button>No</button></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
