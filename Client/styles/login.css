@@ -1,0 +1,101 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+}
+
+.login-box {
+    background-color: var(--background-color);
+    padding: 25px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.login-box .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.login-box > div {
+    width: 100%;
+}
+
+.login-box input {
+    width: 100%;
+    background-color: transparent;
+    padding: 8px 15px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #737373;
+}
+
+.login-box .error {
+    margin-top: 5px;
+    color: var(--main-color);
+}
+
+.login-box .error.hide {
+    display: none;
+}
+
+.login-box > div:last-child {
+    text-align: center;
+}
+
+.login-box > div:last-child button {
+    padding: 8px 20px;
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* BOTTOM LOGIN */
+
+.login > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.login > div p {
+    font-size: .875rem;
+}
+
+.login > div button {
+    color: white;
+    background-color: transparent;
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: .9rem;
+    padding: 8px 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
