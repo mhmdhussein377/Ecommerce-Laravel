@@ -3,6 +3,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    padding: 0 20px;
 }
 
 select {
@@ -27,7 +28,7 @@ select option {
 .product-box {
     background-color: var(--background-color);
     padding: 20px;
-    width: 400px;
+    width: 430px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -55,7 +56,7 @@ select option {
     outline: none;
 }
 
-.product-box button {
+.product-box button, .product-box .upload-img {
     padding: 10px 20px;
     border: none;
     background-color: var(--main-color);
@@ -75,13 +76,14 @@ select option {
 }
 
 .product-box .img img {
+    display: none;
     width: 300px;
     height: 300px;
 }
 
 /* MODAL */
 
-.modal {
+/* .modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -134,7 +136,7 @@ select option {
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     cursor: pointer;
-}
+} */
 
 /* ABSOUTE BUTTONS */
 

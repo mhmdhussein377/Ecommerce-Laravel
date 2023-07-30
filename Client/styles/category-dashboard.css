@@ -159,3 +159,14 @@ h2 {
     -o-border-radius: 5px;
     cursor: pointer;
 }
+
+.category-created {
+    color: var(--main-color);
+    margin-top: 9px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.category-created.hide {
+    display: none;
+}
