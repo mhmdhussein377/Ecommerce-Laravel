@@ -30,3 +30,74 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+h2 {
+    margin-top: 6.25rem;
+    font-size: 25px;
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+.boxes {
+    width: 100%;
+    max-width: 1240px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.boxes .box {
+    background-color: var(--background-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.boxes .box input {
+    width: 100%;
+    padding: 8px 20px;
+    border: none;
+    border-bottom: 1px solid #737337;
+    font-size: 1rem;
+    outline: none;
+    background-color: transparent;
+}
+
+.boxes .box select {
+    width: 50%;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    outline: none;
+}
+
+.boxes .box button {
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-category-box, .delete-category-box {
+    justify-content: space-between;
+}
