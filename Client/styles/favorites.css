@@ -1,3 +1,71 @@
 nav div:last-child {
     color: var(--main-color);
 }
+nav div:first-child {
+    color: black !important;
+}
+
+.favorites {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    border: 1px solid var(--background-color);
+    padding: 20px;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    cursor: pointer;
+}
+
+.card .card-img {
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.card .card-name {
+    font-weight: bold;
+    font-size: 1.125rem;
+    text-align: center;
+    display: none;
+}
+
+.card .card-desc {
+    text-align: center;
+    margin-top: 0.625rem;
+    margin-bottom: 1.25rem;
+    color: #212245cb;
+    display: none;
+}
+.card:hover .card-desc,
+.card:hover .card-name {
+    display: block;
+}
+
+.card .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card .buttons button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
