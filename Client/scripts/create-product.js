@@ -44,8 +44,6 @@ form.addEventListener('submit', async(e) => {
     let productDesc = productDescInput.value
     let category = categories.value
 
-    console.log(token)
-
     try {
         let data = {
             name: productName,

@@ -1,0 +1,3 @@
+nav div:last-child {
+    color: var(--main-color);
+}

@@ -33,23 +33,43 @@ logout.addEventListener("click", async() => {
     }
 })
 
-// displaying items function addToFavorite () {     console.log("added to
-// favorite") }
+// displaying items
+async function addToFavorites(event, product_id) {
+    const user_id = JSON
+        .parse(localStorage.getItem("user"))
+        .id
+    const token = localStorage.getItem('token')
+    const data = {
+        user_id,
+        product_id
+    }
 
-try {
-    const token = localStorage.getItem("token")
-    async function getProduts() {
-        const response = await axios.get("http://127.0.0.1:8000/api/products", {
+    try {
+        let response = await axios.post("http://127.0.0.1:8000/api/favorites/add", data, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
+        if (response.data === "Item has been added to favorites successfully") {
+            event.target.innerText = "Remove from Favorites"
+        }else {
+            event.target.innerText = "Add to Favorites";
+        }
+        console.log(response);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+try {
+    const token = localStorage.getItem("token")
+    async function getProduts() {
         const categories = await axios.get("http://127.0.0.1:8000/api/categories", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-        let products = []
+
         categories
             .data
             .map(async function (category) {
@@ -59,8 +79,6 @@ try {
                     }
                 });
                 const data = response.data
-                console.log(data)
-                console.log("data")
                 if (data.products.length > 0) {
                     categoriesElement.innerHTML += `<div class="category">
                     <h3>${data.category_name}</h3>
@@ -71,7 +89,7 @@ try {
                             <div class="card-name">${product.name}</div>
                             <div class="card-desc">${product.description}</div>
                             <div class="buttons">
-                                <div><button>Add to Favorites</button></div>
+                                <div><button class="add-favorite-button" onClick="addToFavorites(event, ${product.id})">Add to Favorites</button></div>
                                 <div><button>Add to Cart</button></div>
                             </div>
                         </div>`)}
@@ -80,8 +98,6 @@ try {
                 }
 
             })
-        console.log("botttottom")
-        console.log(products)
         // let organizedData = {} response.data.forEach(product => {     const
         // categoryId = product.category_id;     if(!organizedData[categoryId]) {
         // organizedData[categoryId] = []     } organizedData[categoryId].push(product)

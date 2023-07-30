@@ -206,17 +206,25 @@ nav div:first-child {
 .cards .card {
     border: 1px solid var(--background-color);
     padding: 20px;
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    cursor: pointer;
 }
 
 .cards .card .card-img {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+
 }
 
 .cards .card .card-name {
     font-weight: bold;
     font-size: 1.125rem;
     text-align: center;
+    display: none;
 }
 
 .cards .card .card-desc {
@@ -224,15 +232,23 @@ nav div:first-child {
     margin-top: .625rem;
     margin-bottom: 1.25rem;
     color: #212245cb;
+    display: none;
+}
+
+.cards .card:hover .card-name, .cards .card:hover .card-desc {
+    display: block;
 }
 
 .cards .card .buttons {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
     align-items: center;
     justify-content: space-between;
 }
 
 .cards .card .buttons button {
+    width: 100%;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
