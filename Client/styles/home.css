@@ -9,8 +9,19 @@ nav div:first-child {
     gap: 40px;
 }
 
-.left-hero, .right-hero {
+.left-hero,
+.right-hero {
     flex: 6;
+}
+
+@media (max-width: 1120px) {
+    .left-hero {
+        flex: 8;
+    }
+
+    .right-hero img {
+        width: 400px;
+    }
 }
 
 .left-hero h4 {
@@ -24,10 +35,15 @@ nav div:first-child {
     font-size: 2.5rem;
 }
 
+@media (max-width: 1120px) {
+    .left-hero h1 {
+        font-size: 2rem;
+    }
+}
+
 .left-hero h1 span {
     color: var(--main-color);
 }
-
 .left-hero h1 span:first-of-type {
     text-transform: uppercase;
 }
@@ -59,12 +75,10 @@ nav div:first-child {
     background-color: red;
     cursor: pointer;
 }
-
 .left-hero .buttons button:first-of-type {
     color: white;
     gap: 10px;
 }
-
 .left-hero .buttons button:last-of-type {
     background-color: transparent;
     padding: 8px 25px;
@@ -97,6 +111,21 @@ nav div:first-child {
     -o-border-radius: 50%;
     background-color: var(--main-color);
     color: white;
+}
+
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        margin: auto;
+    }
+
+    .hero .buttons, .hero .features {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 /* SERVICES */
@@ -146,6 +175,19 @@ nav div:first-child {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+}
+@media (max-width: 950px) {
+
+    .services .services-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 650px) {
+
+    .services .services-content {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 40px;
+    }
 }
 
 .services .service {
@@ -206,11 +248,11 @@ nav div:first-child {
 .cards .card {
     border: 1px solid var(--background-color);
     padding: 20px;
-    transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -ms-transition: all .2s linear;
-    -o-transition: all .2s linear;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
     cursor: pointer;
 }
 
@@ -228,13 +270,13 @@ nav div:first-child {
 
 .cards .card .card-desc {
     text-align: center;
-    margin-top: .625rem;
+    margin-top: 0.625rem;
     margin-bottom: 1.25rem;
     color: #212245cb;
     display: none;
 }
-
-.cards .card:hover .card-name, .cards .card:hover .card-desc {
+.cards .card:hover .card-desc,
+.cards .card:hover .card-name {
     display: block;
 }
 
@@ -257,39 +299,37 @@ nav div:first-child {
     -o-border-radius: 5px;
     background-color: var(--main-color);
     color: white;
-    font-size: .875rem;
+    font-size: 0.875rem;
     cursor: pointer;
 }
 
+@media (max-width: 1170px) {
 
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
 
+@media (max-width: 840px) {
 
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
 
+@media (max-width: 600px) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+}
 
 .card-img img {
     width: 150px;
-
 }

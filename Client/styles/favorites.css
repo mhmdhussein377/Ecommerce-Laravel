@@ -69,3 +69,28 @@ nav div:first-child {
     font-size: 0.875rem;
     cursor: pointer;
 }
+
+@media (max-width: 1170px) {
+
+    .favorites {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+@media (max-width: 920px) {
+
+    .favorites {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+@media (max-width: 650px) {
+
+    .favorites {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+}
