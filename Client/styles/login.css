@@ -3,6 +3,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 20px;
+}
+
+.login button {
+    cursor: pointer;
 }
 
 .login {
@@ -48,7 +53,7 @@ body {
 }
 
 .login-box .error {
-    margin-top: 5px;
+    margin-top: 10px;
     color: var(--main-color);
 }
 

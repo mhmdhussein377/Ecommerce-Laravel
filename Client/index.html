@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/main.css">
-    <link rel="stylesheet" href="./styles/login.css">
-    <title>Login</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./styles/main.css">
+        <link rel="stylesheet" href="./styles/login.css">
+        <title>Login</title>
+    </head>
 
-<body>
-    <div class="login">
-        <form class="login-box">
-            <div class="inputs">
+    <body>
+        <div class="login">
+            <form class="login-box">
                 <div>
-                    <div><input placeholder="Email" type="text"></div>
-                    <div class="username-error error hide">Username not found</div>
+                    <div class="inputs">
+                        <div>
+                            <div><input id="email-input" placeholder="Email" type="email"></div>
+                            <!-- <div class="email-error error hide">Email incorrect</div> -->
+                        </div>
+                        <div>
+                            <div><input id="password-input" placeholder="Password" type="password"></div>
+                            <!-- <div class="password-error error hide">Password is not correct</div> -->
+                        </div>
+                    </div>
+                    <div class="error hide">Wrong Credentials</div>
                 </div>
-                <div>
-                    <div><input placeholder="Password" type="password"></div>
-                    <div class="password-error error hide">Password is not correct</div>
+                <div id="login-button" class="login-button">
+                    <button type="submit">Login</button>
                 </div>
+            </form>
+            <div>
+                <p>Don't have an account?</p>
+                <a href="./pages/signup.html">
+                    <button>Create an account</button>
+                </a>
             </div>
-            <div class="login-button"><button type="submit">Login</button></div>
-        </form>
-        <div>
-            <p>Don't have an account?</p>
-            <button>Create an account</button>
         </div>
-    </div>
-</body>
+        <script src="./scripts/axios/axios.min.js"></script>
+        <script src="./scripts/login.js"></script>
+    </body>
 
 </html>

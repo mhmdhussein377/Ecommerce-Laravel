@@ -14,24 +14,21 @@
         <form class="signup-box">
             <div class="inputs">
                 <div>
-                    <div><input placeholder="First Name" type="text"></div>
+                    <div><input id="name-input" placeholder="Enter your name" type="text"></div>
                 </div>
                 <div>
-                    <div><input placeholder="Last Name" type="text"></div>
+                    <div><input id="email-input" placeholder="Enter your email" type="email"></div>
+                    <div class="username-error error hide">Email already exists</div>
                 </div>
                 <div>
-                    <div><input placeholder="Username" type="text"></div>
-                    <div class="username-error error hide">Username already exists</div>
-                </div>
-                <div>
-                    <div><input placeholder="Password" type="password"></div>
+                    <div><input id="password-input" placeholder="Password" type="password"></div>
                 </div>
             </div>
             <div class="signup-button"><button type="submit">Signup</button></div>
         </form>
         <div>
             <p>Already have an account?</p>
-            <button>Login</button>
+            <a href="./../index.html"><button>Login</button></a>
         </div>
     </div>
 </body>
