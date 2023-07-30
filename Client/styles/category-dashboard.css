@@ -160,13 +160,49 @@ h2 {
     cursor: pointer;
 }
 
-.category-created {
+.category-created, .category-deleted {
     color: var(--main-color);
     margin-top: 9px;
     font-size: 1rem;
     font-weight: bold;
 }
 
-.category-created.hide {
+.category-created.hide, .category-deleted.hide {
     display: none;
+}
+
+select {
+    padding: 10px 20px;
+    font-size: 1rem;
+    outline: none;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border: none;
+}
+
+@media (max-width: 1000px) {
+    
+    .boxes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .boxes .box select {
+        width: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    
+    .boxes {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .boxes .box select {
+        width: 40%;
+    }
 }
