@@ -22,6 +22,7 @@ form.addEventListener('submit', async(e) => {
         if (response.data.status === "success") {
             localStorage.setItem("user", JSON.stringify(response.data.user))
             localStorage.setItem("token", response.data.authorisation.token)
+            window.location.href = "./../pages/home.html";
             return;
         }
 
