@@ -51,7 +51,7 @@ form.addEventListener('submit', async(e) => {
             name: productName,
             description: productDesc,
             image: base64,
-            category_id: category
+            category_id: 5
         }
 
         const headers = {
