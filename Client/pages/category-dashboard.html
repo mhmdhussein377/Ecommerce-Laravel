@@ -37,7 +37,7 @@
             </form>
             <form class="box update-category-box">
                 <div>
-                    <select class="dropdown" id="upate-select">
+                    <select class="dropdown" id="update-select">
                         <option>Value One</option>
                         <option>Value Two</option>
                         <option>Value Three</option>
@@ -53,11 +53,13 @@
                     </select>
                 </div>
                 <div><input
+                    required
                     id="update-category-name"
                     placeholder="Category name to update"
-                    type="text"></div>
+                    type="text"><div class="category-updated hide">Category has been updated</div></div>
+                
                 <div>
-                    <button id="update-button">Update</button>
+                    <button type="submit" id="update-button">Update</button>
                 </div>
             </form>
             <form class="box delete-category-box">

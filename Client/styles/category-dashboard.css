@@ -160,14 +160,14 @@ h2 {
     cursor: pointer;
 }
 
-.category-created, .category-deleted {
+.category-created, .category-deleted, .category-updated {
     color: var(--main-color);
     margin-top: 9px;
     font-size: 1rem;
     font-weight: bold;
 }
 
-.category-created.hide, .category-deleted.hide {
+.category-created.hide, .category-deleted.hide, .category-updated.hide {
     display: none;
 }
 

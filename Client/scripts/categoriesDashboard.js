@@ -5,11 +5,14 @@ const categoryNameCreate = document.getElementById("create-category-input")
 const creaeteCategoryButton = document.getElementById('create-category-button')
 const createCategoryBox = document.querySelector(".create-category-box")
 const deleteSelect = document.getElementById("delete-select")
+const updateSelect = document.getElementById("update-select")
+const updateCategoryNameInput = document.getElementById('update-category-name')
 const deleteCategoryForm = document.querySelector(".delete-category-box");
 const acceptDeleteButton = document.getElementById("accept-delete-button");
+const updateCategoryForm = document.querySelector(".update-category-box");
 const categoryCreated = document.querySelector(".category-created")
 const categoryDeleted = document.querySelector(".category-deleted");
-
+const categoryUpdated = document.querySelector(".category-updated")
 
 deleteButton.addEventListener("click", () => {
     confirmDeleteModal
@@ -70,14 +73,50 @@ acceptDeleteButton.addEventListener("click", async() => {
                 'Authorization': `Bearer ${token}`
             }
         });
-        confirmDeleteModal.classList.add("hide")
-        categoryDeleted.classList.remove("hide")
+        confirmDeleteModal
+            .classList
+            .add("hide")
+        categoryDeleted
+            .classList
+            .remove("hide")
         setTimeout(() => {
-            categoryDeleted.classList.add("hide")
+            categoryDeleted
+                .classList
+                .add("hide")
         }, 2000)
     } catch (error) {
         console.log(error)
     }
 
     console.log(category)
+})
+
+// update category
+updateCategoryForm.addEventListener('submit', async(e) => {
+    e.preventDefault()
+
+    let categoryName = updateCategoryNameInput.value
+    let categoyrID = updateSelect.value
+    let token = localStorage.getItem("token")
+
+    try {
+        let response = await axios.put("http://127.0.0.1:8000/api/update_category/5", {
+            category_name: categoryName
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        updateCategoryNameInput.value = ""
+        categoryUpdated
+            .classList
+            .remove("hide")
+        setTimeout(() => {
+            categoryUpdated
+                .classList
+                .add("hide");
+        }, 2000);
+    } catch (error) {
+        console.log(error)
+    }
 })
