@@ -101,3 +101,61 @@ h2 {
 .create-category-box, .delete-category-box {
     justify-content: space-between;
 }
+
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.404);
+    padding: 0 20px;
+}
+
+.modal.hide {
+    display: none;
+}
+
+.modal .box {
+    background-color: red;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.modal .box h3 {
+    text-align: center;
+}
+
+.modal .box .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal .box .buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--background-color);
+    color: black;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}

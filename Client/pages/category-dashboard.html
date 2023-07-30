@@ -11,9 +11,9 @@
 
 <body>
     <div class="absolute-buttons">
-        <div class="back"><button>Back</button></div>
+        <div class="back"><a href="./create-product.html"><button>Back</button></a></div>
         <div class="right">
-            <div><button>Home</button></div>
+            <div><a href="./home.html"><button>Home</button></a></div>
         </div>
     </div>
     <h2>Category Dashboard</h2>
@@ -55,9 +55,19 @@
                     <option>Value Two</option>
                     <option>Value Three</option>
                 </select></div>
-            <div><button>Delete</button></div>
+            <div class="delete-button"><button>Delete</button></div>
         </div>
     </div>
+    <div class="modal hide">
+        <div class="box">
+            <h3>Are you sure you want to delete the product?</h3>
+            <div class="buttons">
+                <div><button>Yes</button></div>
+                <div><button class="close-modal">No</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="./../scripts/categoriesDashboard.js"></script>
 </body>
 
 </html>
