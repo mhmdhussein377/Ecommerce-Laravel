@@ -14,14 +14,14 @@
         <form class="signup-box">
             <div class="inputs">
                 <div>
-                    <div><input id="name-input" placeholder="Enter your name" type="text"></div>
+                    <div><input required id="name-input" placeholder="Enter your name" type="text"></div>
                 </div>
                 <div>
-                    <div><input id="email-input" placeholder="Enter your email" type="email"></div>
-                    <div class="username-error error hide">Email already exists</div>
+                    <div><input required id="email-input" placeholder="Enter your email" type="email"></div>
+                    <div id="email-error" class="username-error error hide">Email already exists</div>
                 </div>
                 <div>
-                    <div><input id="password-input" placeholder="Password" type="password"></div>
+                    <div><input required id="password-input" placeholder="Password" type="password"></div>
                 </div>
             </div>
             <div class="signup-button"><button type="submit">Signup</button></div>
@@ -31,6 +31,8 @@
             <a href="./../index.html"><button>Login</button></a>
         </div>
     </div>
-</body>
+    <script src="./../scripts/axios/axios.min.js"></script>
+    <script src="./../scripts/signup.js"></script>
+</body> 
 
 </html>
