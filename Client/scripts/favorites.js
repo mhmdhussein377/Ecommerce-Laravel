@@ -21,39 +21,26 @@ try {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                const product = response.data
-                favoritesElement.innerHTML += `<div class="card">
-                            <div class="card-img"><img src="./../assets/product_01.jpg" alt=""></div>
-                            <div class="card-name">${product.name}</div>
-                            <div class="card-desc">${product.description}</div>
-                            <div class="buttons">
-                                <div><button class="add-favorite-button" onClick="addToFavorites(event, ${product.id})">Add to Favorites</button></div>
-                                <div><button>Add to Cart</button></div>
-                            </div>
-                        </div>`;
+                return await response.data
             } catch (error) {
                 console.log(error)
             }
         }
-        async function fillProductsArray() {
-            response
-                .data
-                .map(async function (product) {
-                    await getProduct(product.product_id);
-                });
-        }
-        fillProductsArray()
+
+        const products = await response.data
+        products.forEach(async(product) => {
+            const productData = await getProduct(product.product_id)
+            favoritesElement.innerHTML += `<div class="card">
+                            <div class="card-img"><img src="./../assets/product_01.jpg" alt=""></div>
+                            <div class="card-name">${productData.name}</div>
+                            <div class="card-desc">${productData.description}</div>
+                            <div class="buttons">
+                                <div><button>Add to Cart</button></div>
+                            </div>
+                        </div>`;
+        })
     }
     getFavorites();
 } catch (error) {
     console.log(error);
 }
-
-// favoritesElement.innerHTML += `<div class="card"> <div class="card-img"><img
-// src="./../assets/product_01.jpg" alt=""></div>                         <div
-// class="card-name">${product.name}</div>                    <div
-// class="card-desc">${product.description}</div>                      <div
-// class="buttons"> <div><button class="add-favorite-button"
-// onClick="addToFavorites(event, ${product.id})">Add to
-// Favorites</button></div>   <div><button>Add to Cart</button></div>
-//       </div>                        </div>`;
