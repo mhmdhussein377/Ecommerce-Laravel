@@ -3,6 +3,7 @@ const cartSidebar = document.querySelector(".cart-sidebar");
 const closeSidebarButton = document.querySelector(".cart-sidebar .close-button");
 const logout = document.querySelector(".logout")
 const categoriesElement = document.querySelector(".categories");
+const cartProducts = document.querySelector(".cart-sidebar .products");
 
 const token = localStorage.getItem("token")
 
@@ -78,11 +79,15 @@ async function addToCart(event, product_id) {
                 Authorization: `Bearer ${token}`
             }
         });
-        if (response.data.message == "Item added to cart successfully") {
-            event.target.innerText = "Remove from Cart";
-        } else {
-            event.target.innerText = "Add to Cart";
+        if (!event.target.classList.contains("fa-solid")) {
+            if (response.data.message == "Item added to cart successfully") {
+                event.target.innerText = "Remove from Cart";
+            } else {
+                event.target.innerText = "Add to Cart";
+            }
         }
+        cartProducts.innerHTML = ""
+        displayCartItems()
     } catch (error) {
         console.log(error);
     }
@@ -178,7 +183,6 @@ try {
         }
 
         // displaying the cart items in the cart sidebar
-        const cartProducts = document.querySelector(".cart-sidebar .products")
 
     async function displayCartItems() {
         const user_id = JSON
@@ -203,6 +207,7 @@ try {
                             }
                         });
                         const product = response.data
+                        console.log(product)
                         cartProducts.innerHTML += `<div class="product">
                 <div class="product-left">
                     <div class="product-img">
@@ -220,7 +225,7 @@ try {
                         </div>
                     </div>
                 </div>
-                <div class="delete-product"><i class="fa-solid fa-x"></i></div>
+                <div class="delete-product" onClick="addToCart(event, ${product.id})"><i class="fa-solid fa-x"></i></div>
             </div>`;
                     }
                     getProduct(cartItem.product_id)
