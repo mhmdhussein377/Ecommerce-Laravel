@@ -50,9 +50,9 @@ async function addToFavorites(event, product_id) {
                 'Authorization': `Bearer ${token}`
             }
         });
-        if (response.data === "Item has been added to favorites successfully") {
+        if (response.data == "Item has been added to favorites successfully") {
             event.target.innerText = "Remove from Favorites"
-        }else {
+        } else {
             event.target.innerText = "Add to Favorites";
         }
         console.log(response);
@@ -79,31 +79,80 @@ try {
                     }
                 });
                 const data = response.data
+                console.log(data.products)
                 if (data.products.length > 0) {
-                    categoriesElement.innerHTML += `<div class="category">
+                    // check if the product is favorited by the user
+                    function checkFavoritesForProducts(products) {
+                        return products.map(async(product) => {
+                            try {
+                                const data = {
+                                    user_id: JSON
+                                        .parse(localStorage.getItem("user"))
+                                        .id,
+                                    product_id: product.id
+                                };
+                                const response = await axios.post("http://127.0.0.1:8000/api/is_favorited", data);
+                                return response.data === "Yes";
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                    const favorites = checkFavoritesForProducts(data.products)
+                    Promise
+                        .all(favorites)
+                        .then((favoritesArray) => {
+                            categoriesElement.innerHTML += `<div class="category">
                     <h3>${data.category_name}</h3>
                     <div class="cards">
                         ${data.products
-                        ?.map((product) => `<div class="card">
-                            <div class="card-img"><img src="./../assets/product_01.jpg" alt=""></div>
-                            <div class="card-name">${product.name}</div>
-                            <div class="card-desc">${product.description}</div>
-                            <div class="buttons">
-                                <div><button class="add-favorite-button" onClick="addToFavorites(event, ${product.id})">Add to Favorites</button></div>
-                                <div><button>Add to Cart</button></div>
-                            </div>
-                        </div>`)}
+                                ?.map(function (product, index) {
+                                    return `<div class="card"> <div class="card-img">
+                                            <img src="./../assets/product_01.jpg" alt=""></div>
+                                            <div class="card-name">${
+                                    product.name}</div>
+                                            <div class="card-desc">${
+                                    product.description}</div>
+                                            <div class="buttons">
+                                                <div>
+                                                    <button
+                                                        class="add-favorite-button"
+                                                        onClick="addToFavorites(event, ${
+                                    product.id})">${favoritesArray[index]
+                                        ? "Remove from Favorites"
+                                        : "Add to Favorites"}</button>
+                                                </div>
+                                                <div>
+                                                    <button>Add to Cart</button>
+                                                </div>
+                                            </div>
+                                        </div>`;})}
                     </div>
                 </div>`;
-                }
+                                })
+                        }})
+                // let organizedData = {} response.data.forEach(product => {     const
+                // categoryId = product.category_id;     if(!organizedData[categoryId]) {
+                // organizedData[categoryId] = []     } organizedData[categoryId].push(product)
+                // }) console.log(organizedData)
+            }
+            getProduts()
+        } catch (error) {
+            console.log(error)
+        }
 
-            })
-        // let organizedData = {} response.data.forEach(product => {     const
-        // categoryId = product.category_id;     if(!organizedData[categoryId]) {
-        // organizedData[categoryId] = []     } organizedData[categoryId].push(product)
-        // }) console.log(organizedData)
+        let isFavorited = false;
+    async function checkFavorite() {
+        try {
+            const data = {
+                user_id: JSON
+                    .parse(localStorage.getItem("user"))
+                    .id,
+                product_id: product.id
+            };
+            const response = await axios.post("http://127.0.0.1:8000/api/is_favorited", data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
     }
-    getProduts()
-} catch (error) {
-    console.log(error)
-}
