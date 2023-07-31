@@ -18,6 +18,7 @@ select {
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     border: none;
+    cursor: pointer;
 }
 
 select option {
@@ -219,4 +220,13 @@ select option {
     color: var(--main-color);
     font-size: 1.875rem;
     cursor: pointer;
+}
+
+.img-error {
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.img-error.hide {
+    display: none;
 }

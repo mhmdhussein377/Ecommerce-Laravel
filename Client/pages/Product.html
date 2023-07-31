@@ -29,40 +29,32 @@
         </div>
     </div>
     <div class="product-box">
-        <div class="img"><img src="./../assets/product_01.jpg" alt=""></div>
-        <div><input placeholder="Name" type="text"></div>
-        <div><input placeholder="description" type="text"></div>
+        <input id="fileInput" style="display: none;" type="file">
+        <div class="img"><img alt=""></div>
+        <div><input id="name-input" placeholder="Name" type="text"></div>
+        <div><input id="desc-input" placeholder="description" type="text"></div>
         <div class="update-select">
-            <div><select class="dropdown" id="topics">
-                    <option>Value One</option>
-                    <option>Value Two</option>
-                    <option>Value Three</option>
-                    <option>Value One</option>
-                    <option>Value Two</option>
-                    <option>Value Three</option>
-                    <option>Value One</option>
-                    <option>Value Two</option>
-                    <option>Value Three</option>
-                    <option>Value One</option>
-                    <option>Value Two</option>
-                    <option>Value Three</option>
+            <div><select class="dropdown" id="categories-select">
+                    
                 </select></div>
-            <div><button>Upload Image</button></div>
+            <div id="upload-image-button"><button>Upload Image</button></div>
         </div>
         <div class="buttons">
-            <div><button>Update</button></div>
-            <div class="delete-button"><button>Delete</button></div>
+            <div id="update-button"><button>Update</button></div>
+            <div id="delete-button" class="delete-button"><button>Delete</button></div>
         </div>
     </div>
+    <!-- MODAL -->
     <div class="modal hide">
         <div class="box">
             <h3>Are you sure you want to delete the product?</h3>
             <div class="buttons">
-                <div><button>Yes</button></div>
+                <div><button id="confirm-delete">Yes</button></div>
                 <div><button class="close-modal">No</button></div>
             </div>
         </div>
     </div>
+    <script src="./../scripts/axios/axios.min.js"></script>
     <script src="./../scripts/Product.js"></script>
 </body>
 

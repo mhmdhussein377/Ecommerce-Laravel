@@ -1,6 +1,17 @@
 const logoutButton = document.getElementById("logout")
 const categoriesElement = document.querySelector(".categories");
 
+
+// direct the user to the login if he is not an admin
+const user_role_id = JSON.parse(localStorage.getItem("user")).user_role_id
+
+if(user_role_id !== 2) {
+    window.location.href = "./../index.html"
+}
+
+
+
+
 logout.addEventListener("click", async() => {
     try {
         localStorage.removeItem("token");
@@ -35,9 +46,9 @@ try {
     <div class="cards">
       ${data.products
         ?.map(function (product) {
-          return `<a href="/Client/pages/Product.html?${product.id}"><div class="card">
+          return `<a href="/Client/pages/Product.html?id=${product.id}"><div class="card">
             <div class="card-img">
-              <img src="./../assets/product_01.jpg" alt="">
+              <img src="${product.image}" alt="">
             </div>
             <div style="display: block;" class="card-name">${product.name}</div>
             <div style="display: block;" class="card-desc">${product.description}</div>
@@ -53,3 +64,8 @@ try {
         } catch (error) {
             console.log(error);
         }
+
+
+
+
+

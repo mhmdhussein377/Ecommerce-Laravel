@@ -259,7 +259,20 @@ nav div:first-child {
 
 .cards .card .card-img {
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    max-height: 150px;
+    margin: auto;
     margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.cards .card .card-img img {
+    width: 100%;
 }
 
 .cards .card .card-name {

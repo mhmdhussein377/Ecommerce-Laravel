@@ -14,6 +14,19 @@ const categoryCreated = document.querySelector(".category-created")
 const categoryDeleted = document.querySelector(".category-deleted");
 const categoryUpdated = document.querySelector(".category-updated")
 
+
+// direct the user to the login if he is not an admin
+const user_role_id = JSON
+    .parse(localStorage.getItem("user"))
+    .user_role_id;
+
+if (user_role_id !== 2) {
+    window.location.href = "./../index.html";
+}
+
+
+
+
 deleteButton.addEventListener("click", () => {
     confirmDeleteModal
         .classList

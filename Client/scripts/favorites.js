@@ -35,6 +35,29 @@ function executeTwoFunction(event, productId) {
     displayFavoriteItems()
 }
 
+// increment the quantity
+async function incrementQuantity(product_id) {
+    try {
+        const token = localStorage.getItem("token")
+        const user_id = JSON
+            .parse(localStorage.getItem("user"))
+            .id
+
+        const data = {
+            user_id,
+            product_id
+        }
+
+        const response = await axios.post("http://127.0.0.1:8000/api/cart/increment", data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        cartProducts.innerHTML = ""
+        displayCartItems()
+    } catch (error) {}
+}
+
 // display items in the cart sidebar
 async function displayCartItems() {
     const user_id = JSON
@@ -59,20 +82,19 @@ async function displayCartItems() {
                         }
                     });
                     const product = response.data;
-                    console.log(product);
                     cartProducts.innerHTML += `<div class="product">
                 <div class="product-left">
                     <div class="product-img">
-                        <img src="./../assets/product_01.jpg" alt="">
+                        <img src="${product.image}" alt="product">
                     </div>
                     <div class="product-details">
                         <div class="product-name">${product.name}</div>
                         <div class="">
                             <div class="product-quantity">${cartItem.quantity}x</div>
                             <div class="product-counter">
-                                <span>+</span>
-                                <span>${cartItem.quantity}</span>
                                 <span>-</span>
+                                <span>${cartItem.quantity}</span>
+                                <span onClick="incrementQuantity(${product.id})">+</span>
                             </div>
                         </div>
                     </div>
@@ -133,10 +155,6 @@ function displayFavoriteItems() {
                 }
             });
 
-            console.log("responded")
-            console.log(response.data)
-            console.log("responded")
-
             async function getProduct(productID) {
                 try {
                     const response = await axios.get(`http://127.0.0.1:8000/api/products/${productID}`, {
@@ -160,10 +178,6 @@ function displayFavoriteItems() {
                             product_id: product.product_id
                         };
                         const response = await axios.post("http://127.0.0.1:8000/api/is_item_in_cart", data);
-                        // return response.data === "Yes";
-                        console.log("lllll");
-                        console.log(response.data);
-                        console.log("lllll");
                         return response.data === "Yes";
                     } catch (error) {
                         console.log(error);
@@ -181,7 +195,7 @@ function displayFavoriteItems() {
                         .forEach(async(product, index) => {
                             const productData = await getProduct(product.product_id);
                             favoritesElement.innerHTML += `<div class="card">
-                            <div class="card-img"><img src="./../assets/product_01.jpg" alt=""></div>
+                            <div class="card-img"><img src="${productData.image}" alt=""></div>
                             <div class="card-name">${productData.name}</div>
                             <div class="card-desc">${
                             productData.description}</div>

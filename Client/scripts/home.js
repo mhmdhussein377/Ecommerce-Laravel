@@ -147,7 +147,7 @@ try {
                             console.log(favoritesAndInCart[index]);
                             return `<div class="card">
             <div class="card-img">
-              <img src="./../assets/product_01.jpg" alt="">
+              <img src="${product.image}" alt="">
             </div>
             <div class="card-name">${product.name}</div>
             <div class="card-desc">${product.description}</div>
@@ -182,6 +182,32 @@ try {
             console.log(error)
         }
 
+
+
+        // increment the quantity
+        async function incrementQuantity(product_id) {
+            try {
+                const token = localStorage.getItem("token")
+                const user_id = JSON.parse(localStorage.getItem("user")).id
+
+                const data = {
+                    user_id,
+                    product_id
+                }
+
+                const response = await axios.post("http://127.0.0.1:8000/api/cart/increment", data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                cartProducts.innerHTML = ""
+                displayCartItems()
+                console.log(response.data)
+            } catch (error) {
+                
+            }
+        }
+
         // displaying the cart items in the cart sidebar
 
         async function displayCartItems() {
@@ -211,16 +237,16 @@ try {
                             cartProducts.innerHTML += `<div class="product">
                 <div class="product-left">
                     <div class="product-img">
-                        <img src="./../assets/product_01.jpg" alt="">
+                        <img src="${product.image}" alt="">
                     </div>
                     <div class="product-details">
                         <div class="product-name">${product.name}</div>
                         <div class="">
                             <div class="product-quantity">${cartItem.quantity}x</div>
                             <div class="product-counter">
-                                <span>+</span>
-                                <span>${cartItem.quantity}</span>
                                 <span>-</span>
+                                <span>${cartItem.quantity}</span>
+                                <span onClick="incrementQuantity(${product.id})">+</span>
                             </div>
                         </div>
                     </div>
