@@ -20,3 +20,4 @@ deleteButton.addEventListener("click", () => {
 closeModalButton.addEventListener("click", () => {
     confirmDeleteModal.classList.add('hide')
 })
+

@@ -246,6 +246,7 @@ nav div:first-child {
 }
 
 .cards .card {
+    width: 100%;
     border: 1px solid var(--background-color);
     padding: 20px;
     transition: all 0.2s linear;

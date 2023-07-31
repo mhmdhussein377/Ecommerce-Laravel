@@ -14,7 +14,8 @@ form.addEventListener('submit', async(e) => {
     const data = {
         name,
         email,
-        password
+        password,
+        user_role_id: 1
     }
 
     try {

@@ -111,7 +111,6 @@ try {
                     }
                 });
                 const data = response.data
-                console.log(data.products)
                 if (data.products.length > 0) {
                     // check if the product is favorited by the user
                     function checkFavoritesForProducts(products) {
@@ -139,43 +138,44 @@ try {
                             }
                         });
                     }
-                    const favoritesAndInCart = checkFavoritesForProducts(data.products)
-                    Promise
-                        .all(favoritesAndInCart)
-                        .then((favoritesArray) => {
-                            categoriesElement.innerHTML += `<div class="category">
-                    <h3>${data.category_name}</h3>
-                    <div class="cards">
-                        ${data.products
-                                ?.map(function (product, index) {
-                                    console.log(favoritesArray[index])
-                                    return `<div class="card"> <div class="card-img">
-                                            <img src="./../assets/product_01.jpg" alt=""></div>
-                                            <div class="card-name">${
-                                    product.name}</div>
-                                            <div class="card-desc">${
-                                    product.description}</div>
-                                            <div class="buttons">
-                                                <div>
-                                                    <button
-                                                        class="add-favorite-button"
-                                                        onClick="addToFavorites(event, ${
-                                    product.id})">${favoritesArray[index][0]
-                                        ? "Remove from Favorites"
-                                        : "Add to Favorites"}</button>
-                                                </div>
-                                                <div>
-                                                    <button onClick="addToCart(event, ${
-                                    product.id})">${favoritesArray[index][1]
-                                        ? "Remove from Cart"
-                                        : "Add to Cart"}</button>
-                                                </div>
-                                            </div>
-                                        </div>`;})}
-                    </div>
-                </div>`;
-                                });
-                        }})
+                    const favoritesAndInCart = await Promise.all(checkFavoritesForProducts(data.products))
+                    categoriesElement.innerHTML += `<div class="category">
+    <h3>${data.category_name}</h3>
+    <div class="cards">
+      ${data.products
+                        ?.map(function (product, index) {
+                            console.log(favoritesAndInCart[index]);
+                            return `<div class="card">
+            <div class="card-img">
+              <img src="./../assets/product_01.jpg" alt="">
+            </div>
+            <div class="card-name">${product.name}</div>
+            <div class="card-desc">${product.description}</div>
+            <div class="buttons">
+              <div>
+                <button class="add-favorite-button" onClick="addToFavorites(event, ${
+                            product.id})">
+                  ${
+                            favoritesAndInCart[index][0]
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"}
+                </button>
+              </div>
+              <div>
+                <button onClick="addToCart(event, ${product.id})">
+                  ${
+                            favoritesAndInCart[index][1]
+                                ? "Remove from Cart"
+                                : "Add to Cart"}
+                </button>
+              </div>
+            </div>
+          </div>`;})
+        .join("")}
+    </div>
+  </div>`;
+                        }
+                    })
             }
             getProduts()
         } catch (error) {
@@ -184,31 +184,31 @@ try {
 
         // displaying the cart items in the cart sidebar
 
-    async function displayCartItems() {
-        const user_id = JSON
-            .parse(localStorage.getItem("user"))
-            .id
-        const token = localStorage.getItem("token")
-        try {
-            let response = await axios.post("http://127.0.0.1:8000/api/cart", {
-                user_id
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            response
-                .data
-                .map(async function (cartItem) {
-                    async function getProduct(id) {
-                        const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`, {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
-                        const product = response.data
-                        console.log(product)
-                        cartProducts.innerHTML += `<div class="product">
+        async function displayCartItems() {
+            const user_id = JSON
+                .parse(localStorage.getItem("user"))
+                .id
+            const token = localStorage.getItem("token")
+            try {
+                let response = await axios.post("http://127.0.0.1:8000/api/cart", {
+                    user_id
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                response
+                    .data
+                    .map(async function (cartItem) {
+                        async function getProduct(id) {
+                            const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            });
+                            const product = response.data
+                            console.log(product)
+                            cartProducts.innerHTML += `<div class="product">
                 <div class="product-left">
                     <div class="product-img">
                         <img src="./../assets/product_01.jpg" alt="">
@@ -227,12 +227,12 @@ try {
                 </div>
                 <div class="delete-product" onClick="addToCart(event, ${product.id})"><i class="fa-solid fa-x"></i></div>
             </div>`;
-                    }
-                    getProduct(cartItem.product_id)
-                })
-        } catch (error) {
-            console.log(error)
+                        }
+                        getProduct(cartItem.product_id)
+                    })
+            } catch (error) {
+                console.log(error)
+            }
         }
-    }
 
-    displayCartItems()
+        displayCartItems()

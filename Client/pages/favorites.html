@@ -1,49 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../styles/main.css">
-    <link rel="stylesheet" href="./../styles/favorites.css">
-    <link rel="stylesheet" href="./../styles/header.css">
-    <link rel="stylesheet" href="./../styles/home.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Favorites</title>
-</head>
-<body>
-    <!-- HEADER -->
-    <header>
-        <div class="container">
-            <div class="logo">
-                <div class="logo-img"><img src="./../assets/res-logo.png" alt="Logo"></div>
-                <div class="logo-name">Logo Name</div>
-            </div>
-            <nav>
-                <div><a href="./home.html">Home</a></div>
-                <div><a href="#">Food</a></div>
-                <div><a href="#">Cart</a></div>
-                <div><a href="#">Favorites</a></div>
-            </nav>
-            <div class="right-header">
-                <div class="cart-icon">
-                    <div><i class="fa-solid fa-cart-shopping fa-lg"></i></div>
-                    <span class="cart-badge">6</span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./../styles/main.css">
+        <link rel="stylesheet" href="./../styles/favorites.css">
+        <link rel="stylesheet" href="./../styles/header.css">
+        <link rel="stylesheet" href="./../styles/home.css">
+        <link rel="stylesheet" href="./../styles/cart-sidebar.css">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+        <title>Favorites</title>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <div class="logo-img"><img src="./../assets/res-logo.png" alt="Logo"></div>
+                    <div class="logo-name">Logo Name</div>
                 </div>
-                <div class="logout">Logout</div>
+                <nav>
+                    <div>
+                        <a href="./home.html">Home</a>
+                    </div>
+                    <div>
+                        <a href="#">Food</a>
+                    </div>
+                    <div>
+                        <a href="#">Cart</a>
+                    </div>
+                    <div>
+                        <a href="#">Favorites</a>
+                    </div>
+                </nav>
+                <div class="right-header">
+                    <div class="cart-icon">
+                        <div>
+                            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                        </div>
+                        <span class="cart-badge">6</span>
+                    </div>
+                    <div class="logout">Logout</div>
+                </div>
             </div>
-        </div>
-    </header>
-    <!-- FAVORITES -->
-    <section>
-        <div class="food container">
-            <h2>Favorites</h2>
-            <div class="favorites">
+        </header>
+        <!-- CART SIDEBAR -->
+        <div class="cart-sidebar hide">
+            <div class="close-button">
+                <i class="fa-solid fa-x"></i>
             </div>
+            <div class="products"></div>
         </div>
-    </section>
-    <script src="./../scripts/axios/axios.min.js"></script>
-    <script src="./../scripts/favorites.js"></script>
-</body>
+        <!-- FAVORITES -->
+        <section>
+            <div class="food container">
+                <h2>Favorites</h2>
+                <div class="favorites"></div>
+            </div>
+        </section>
+        <script src="./../scripts/axios/axios.min.js"></script>
+        <script src="./../scripts/favorites.js"></script>
+    </body>
 </html>

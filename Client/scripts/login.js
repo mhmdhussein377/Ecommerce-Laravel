@@ -18,7 +18,11 @@ loginForm.addEventListener("submit", async(e) => {
             console.log(response.data)
             localStorage.setItem("user", JSON.stringify(response.data.user))
             localStorage.setItem("token", response.data.authorisation.token)
-            window.location.href = "/Client/pages/home.html";
+            if(response.data.user.user_role_id === 1) {
+                window.location.href = "/Client/pages/home.html";
+            }else {
+                window.location.href = "/Client/pages/admin-dashboard.html";
+            }
         }else {
             error.classList.remove("hide")
             setTimeout(() => {
