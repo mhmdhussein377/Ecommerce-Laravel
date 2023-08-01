@@ -52,6 +52,8 @@ async function displayCategories() {
         });
         const categories = response.data
         console.log(categories)
+        updateSelect.innerHTML = ""
+        deleteSelect.innerHTML = ""
         categories.map(category => (updateSelect.innerHTML += `<option value="${category.id}">${category.category_name}</option>`))
         categories.map((category) => (deleteSelect.innerHTML += `<option value="${category.id}">${category.category_name}</option>`));
     } catch (error) {
