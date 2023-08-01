@@ -4,6 +4,7 @@ const cartSidebar = document.querySelector(".cart-sidebar");
 const closeSidebarButton = document.querySelector(".cart-sidebar .close-button");
 const cartProducts = document.querySelector(".cart-sidebar .products");
 const logout = document.querySelector(".logout")
+const cartBadge = document.querySelector(".cart-badge")
 
 logout.addEventListener("click", async() => {
     try {
@@ -58,6 +59,35 @@ async function incrementQuantity(product_id) {
     } catch (error) {}
 }
 
+// decrement the quantity
+async function decrementQuantity(product_id, quantity) {
+    try {
+
+        if (quantity > 1) {
+            const token = localStorage.getItem("token");
+            const user_id = JSON
+                .parse(localStorage.getItem("user"))
+                .id;
+
+            const data = {
+                user_id,
+                product_id
+            };
+
+            const response = await axios.post("http://127.0.0.1:8000/api/cart/decrement", data, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            cartProducts.innerHTML = "";
+            displayCartItems();
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 // display items in the cart sidebar
 async function displayCartItems() {
     const user_id = JSON
@@ -72,9 +102,12 @@ async function displayCartItems() {
                 Authorization: `Bearer ${token}`
             }
         });
+
+        let quantity = 0
         response
             .data
             .map(async function (cartItem) {
+                quantity += cartItem.quantity
                 async function getProduct(id) {
                     const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`, {
                         headers: {
@@ -92,7 +125,7 @@ async function displayCartItems() {
                         <div class="">
                             <div class="product-quantity">${cartItem.quantity}x</div>
                             <div class="product-counter">
-                                <span>-</span>
+                                <span onClick="decrementQuantity(${product.id}, ${cartItem.quantity})">-</span>
                                 <span>${cartItem.quantity}</span>
                                 <span onClick="incrementQuantity(${product.id})">+</span>
                             </div>
@@ -104,6 +137,7 @@ async function displayCartItems() {
                 }
                 getProduct(cartItem.product_id);
             });
+            cartBadge.innerText = quantity
     } catch (error) {
         console.log(error);
     }

@@ -4,6 +4,7 @@ const closeSidebarButton = document.querySelector(".cart-sidebar .close-button")
 const logout = document.querySelector(".logout")
 const categoriesElement = document.querySelector(".categories");
 const cartProducts = document.querySelector(".cart-sidebar .products");
+const cartBadge = document.querySelector('.cart-badge')
 
 const token = localStorage.getItem("token")
 
@@ -102,6 +103,7 @@ try {
             }
         });
 
+
         categories
             .data
             .map(async function (category) {
@@ -182,13 +184,13 @@ try {
             console.log(error)
         }
 
-
-
         // increment the quantity
         async function incrementQuantity(product_id) {
             try {
                 const token = localStorage.getItem("token")
-                const user_id = JSON.parse(localStorage.getItem("user")).id
+                const user_id = JSON
+                    .parse(localStorage.getItem("user"))
+                    .id
 
                 const data = {
                     user_id,
@@ -204,9 +206,43 @@ try {
                 displayCartItems()
                 console.log(response.data)
             } catch (error) {
-                
+                console.log(error)
             }
         }
+
+        // decrement the quantity
+        async function decrementQuantity(product_id, quantity) {
+            try {
+                console.log('hello')
+                console.log(quantity)
+                console.log("product id")
+                console.log(product_id)
+                if (quantity > 1) {
+                    console.log("hello")
+                    const token = localStorage.getItem("token");
+                    const user_id = JSON
+                        .parse(localStorage.getItem("user"))
+                        .id;
+
+                    const data = {
+                        user_id,
+                        product_id
+                    };
+
+                    const response = await axios.post("http://127.0.0.1:8000/api/cart/decrement", data, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+                    cartProducts.innerHTML = "";
+                    displayCartItems();
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
 
         // displaying the cart items in the cart sidebar
 
@@ -223,9 +259,12 @@ try {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+
+                let quantity = 0;
                 response
                     .data
                     .map(async function (cartItem) {
+                        quantity += cartItem.quantity
                         async function getProduct(id) {
                             const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`, {
                                 headers: {
@@ -233,8 +272,7 @@ try {
                                 }
                             });
                             const product = response.data
-                            console.log(product)
-                            cartProducts.innerHTML += `<div class="product">
+                                cartProducts.innerHTML += `<div class="product">
                 <div class="product-left">
                     <div class="product-img">
                         <img src="${product.image}" alt="">
@@ -244,7 +282,8 @@ try {
                         <div class="">
                             <div class="product-quantity">${cartItem.quantity}x</div>
                             <div class="product-counter">
-                                <span>-</span>
+                                <span onClick="decrementQuantity(${product.id},
+                                ${cartItem.quantity})">-</span>
                                 <span>${cartItem.quantity}</span>
                                 <span onClick="incrementQuantity(${product.id})">+</span>
                             </div>
@@ -253,12 +292,13 @@ try {
                 </div>
                 <div class="delete-product" onClick="addToCart(event, ${product.id})"><i class="fa-solid fa-x"></i></div>
             </div>`;
-                        }
-                        getProduct(cartItem.product_id)
-                    })
-            } catch (error) {
-                console.log(error)
+                            }
+                            getProduct(cartItem.product_id)
+                        })
+                        cartBadge.innerText = quantity
+                } catch (error) {
+                    console.log(error)
+                }
             }
-        }
 
-        displayCartItems()
+            displayCartItems()
