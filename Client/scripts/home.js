@@ -63,119 +63,66 @@ logout.addEventListener("click", async() => {
     }
 })
 
-// add to favorites / remove from favorites
-async function addToFavorites(event, product_id) {
-    const user_id = JSON
-        .parse(localStorage.getItem("user"))
-        .id
-    const token = localStorage.getItem('token')
-    const data = {
-        user_id,
-        product_id
-    }
-
+async function displayProducts() {
+    console.log("why")
     try {
-        let response = await axios.post("http://127.0.0.1:8000/api/favorites/add", data, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        if (response.data == "Item has been added to favorites successfully") {
-            event.target.innerText = "Remove from Favorites"
-        } else {
-            event.target.innerText = "Add to Favorites";
-        }
-        console.log(response);
-    } catch (error) {
-        console.log(error)
-    }
-}
+        const token = localStorage.getItem("token");
+        async function getProduts() {
+            const categories = await axios.get("http://127.0.0.1:8000/api/categories", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
-// add to cart / remove from cart functionality
-async function addToCart(event, product_id) {
-    const user_id = JSON
-        .parse(localStorage.getItem("user"))
-        .id;
-    const token = localStorage.getItem("token");
-    const data = {
-        user_id,
-        product_id
-    };
+            categoriesElement.innerHTML = "";
 
-    try {
-        let response = await axios.post("http://127.0.0.1:8000/api/cart/add", data, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        if (!event.target.classList.contains("fa-solid")) {
-            if (response.data.message == "Item added to cart successfully") {
-                event.target.innerText = "Remove from Cart";
-            } else {
-                event.target.innerText = "Add to Cart";
-            }
-        }
-        cartProducts.innerHTML = ""
-        displayCartItems()
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-try {
-    const token = localStorage.getItem("token")
-    async function getProduts() {
-        const categories = await axios.get("http://127.0.0.1:8000/api/categories", {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        categories
-            .data
-            .reverse()
-            .map(async function (category) {
-                let response = await axios.get(`http://127.0.0.1:8000/api/category/${category.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                const data = response.data
-                if (data.products.length > 0) {
-                    // check if the product is favorited by the user
-                    function checkFavoritesForProducts(products) {
-                        return products.map(async(product) => {
-                            try {
-                                const data = {
-                                    user_id: JSON
-                                        .parse(localStorage.getItem("user"))
-                                        .id,
-                                    product_id: product.id
-                                };
-                                const isFavoritedResponse = await axios.post("http://127.0.0.1:8000/api/is_favorited", data);
-                                const isInCartResponse = await axios.post("http://127.0.0.1:8000/api/is_item_in_cart", data);
-                                let isFavoritedAndInCart = [
-                                    isFavoritedResponse.data === "Yes"
-                                        ? true
-                                        : false,
-                                    isInCartResponse.data === "Yes"
-                                        ? true
-                                        : false
-                                ];
-                                return isFavoritedAndInCart
-                            } catch (error) {
-                                console.log(error);
-                            }
-                        });
-                    }
-                    const favoritesAndInCart = await Promise.all(checkFavoritesForProducts(data.products))
-                    categoriesElement.innerHTML += `<div class="category">
-    <h3>${data.category_name}</h3>
-    <div class="cards">
+            categories
+                .data
+                .reverse()
+                .map(async function (category) {
+                    let response = await axios.get(`http://127.0.0.1:8000/api/category/${category.id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+                    const data = response.data;
+                    if (data.products.length > 0) {
+                        // check if the product is favorited by the user
+                        function checkFavoritesForProducts(products) {
+                            return products.map(async(product) => {
+                                try {
+                                    const data = {
+                                        user_id: JSON
+                                            .parse(localStorage.getItem("user"))
+                                            .id,
+                                        product_id: product.id
+                                    };
+                                    const isFavoritedResponse = await axios.post("http://127.0.0.1:8000/api/is_favorited", data);
+                                    const isInCartResponse = await axios.post("http://127.0.0.1:8000/api/is_item_in_cart", data);
+                                    let isFavoritedAndInCart = [
+                                        isFavoritedResponse.data === "Yes"
+                                            ? true
+                                            : false,
+                                        isInCartResponse.data === "Yes"
+                                            ? true
+                                            : false
+                                    ];
+                                    return isFavoritedAndInCart;
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+                        const favoritesAndInCart = await Promise.all(checkFavoritesForProducts(data.products));
+                        
+                        categoriesElement.innerHTML += `<div class="category">
+    <h3 class="container">${data.category_name}</h3>
+    <div class="line"></div>
+    <div class="cards container">
       ${data.products
-                        ?.map(function (product, index) {
-                            console.log(favoritesAndInCart[index]);
-                            return `<div class="card">
+                            ?.map(function (product, index) {
+                                console.log(favoritesAndInCart[index]);
+                                return `<div class="card">
             <div class="card-img">
               <img src="${product.image}" alt="">
             </div>
@@ -184,19 +131,19 @@ try {
             <div class="buttons">
               <div>
                 <button class="add-favorite-button" onClick="addToFavorites(event, ${
-                            product.id})">
+                                product.id})">
                   ${
-                            favoritesAndInCart[index][0]
-                                ? "Remove from Favorites"
-                                : "Add to Favorites"}
+                                favoritesAndInCart[index][0]
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"}
                 </button>
               </div>
               <div>
                 <button onClick="addToCart(event, ${product.id})">
                   ${
-                            favoritesAndInCart[index][1]
-                                ? "Remove from Cart"
-                                : "Add to Cart"}
+                                favoritesAndInCart[index][1]
+                                    ? "Remove from Cart"
+                                    : "Add to Cart"}
                 </button>
               </div>
             </div>
@@ -204,99 +151,168 @@ try {
         .join("")}
     </div>
   </div>`;
-                        }
-                    })
+                            }
+                        });
+                }
+                getProduts();
+            } catch (error) {
+                console.log(error);
             }
-            getProduts()
+    }
+
+    // displaying the products
+    displayProducts()
+
+    function removeItem(event, productID) {
+        addToCart(event, productID);
+        console.log("in between")
+        displayProducts();
+    }
+
+    // add to favorites / remove from favorites
+    async function addToFavorites(event, product_id) {
+        const user_id = JSON
+            .parse(localStorage.getItem("user"))
+            .id
+        const token = localStorage.getItem('token')
+        const data = {
+            user_id,
+            product_id
+        }
+
+        try {
+            let response = await axios.post("http://127.0.0.1:8000/api/favorites/add", data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.data == "Item has been added to favorites successfully") {
+                event.target.innerText = "Remove from Favorites"
+            } else {
+                event.target.innerText = "Add to Favorites";
+            }
+            console.log(response);
         } catch (error) {
             console.log(error)
         }
+    }
 
-        // increment the quantity
-        async function incrementQuantity(product_id) {
-            try {
-                const token = localStorage.getItem("token")
+    // add to cart / remove from cart functionality
+    async function addToCart(event, product_id) {
+        const user_id = JSON
+            .parse(localStorage.getItem("user"))
+            .id;
+        const token = localStorage.getItem("token");
+        const data = {
+            user_id,
+            product_id
+        };
+
+        try {
+            let response = await axios.post("http://127.0.0.1:8000/api/cart/add", data, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (!event.target.classList.contains("fa-solid")) {
+                if (response.data.message == "Item added to cart successfully") {
+                    event.target.innerText = "Remove from Cart";
+                } else {
+                    event.target.innerText = "Add to Cart";
+                }
+            }
+            cartProducts.innerHTML = ""
+            displayCartItems()
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // increment the quantity
+    async function incrementQuantity(product_id) {
+        try {
+            const token = localStorage.getItem("token")
+            const user_id = JSON
+                .parse(localStorage.getItem("user"))
+                .id
+
+            const data = {
+                user_id,
+                product_id
+            }
+
+            const response = await axios.post("http://127.0.0.1:8000/api/cart/increment", data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            cartProducts.innerHTML = ""
+            displayCartItems()
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // decrement the quantity
+    async function decrementQuantity(product_id, quantity) {
+        try {
+            if (quantity > 1) {
+                console.log("hello")
+                const token = localStorage.getItem("token");
                 const user_id = JSON
                     .parse(localStorage.getItem("user"))
-                    .id
+                    .id;
 
                 const data = {
                     user_id,
                     product_id
-                }
+                };
 
-                const response = await axios.post("http://127.0.0.1:8000/api/cart/increment", data, {
+                const response = await axios.post("http://127.0.0.1:8000/api/cart/decrement", data, {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        Authorization: `Bearer ${token}`
                     }
                 });
-                cartProducts.innerHTML = ""
-                displayCartItems()
-                console.log(response.data)
-            } catch (error) {
-                console.log(error)
+                cartProducts.innerHTML = "";
+                displayCartItems();
             }
+
+        } catch (error) {
+            console.log(error)
         }
+    }
 
-        // decrement the quantity
-        async function decrementQuantity(product_id, quantity) {
-            try {
-                if (quantity > 1) {
-                    console.log("hello")
-                    const token = localStorage.getItem("token");
-                    const user_id = JSON
-                        .parse(localStorage.getItem("user"))
-                        .id;
+    // displaying the cart items in the cart sidebar
 
-                    const data = {
-                        user_id,
-                        product_id
-                    };
-
-                    const response = await axios.post("http://127.0.0.1:8000/api/cart/decrement", data, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
-                    cartProducts.innerHTML = "";
-                    displayCartItems();
+    async function displayCartItems() {
+        const user_id = JSON
+            .parse(localStorage.getItem("user"))
+            .id
+        const token = localStorage.getItem("token")
+        try {
+            let response = await axios.post("http://127.0.0.1:8000/api/cart", {
+                user_id
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
+            });
 
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        // displaying the cart items in the cart sidebar
-
-        async function displayCartItems() {
-            const user_id = JSON
-                .parse(localStorage.getItem("user"))
-                .id
-            const token = localStorage.getItem("token")
-            try {
-                let response = await axios.post("http://127.0.0.1:8000/api/cart", {
-                    user_id
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                let quantity = 0;
-                response
-                    .data
-                    .reverse()
-                    .map(async function (cartItem) {
-                        quantity += cartItem.quantity
-                        async function getProduct(id) {
-                            const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`, {
-                                headers: {
-                                    'Authorization': `Bearer ${token}`
-                                }
-                            });
-                            const product = response.data
-                            cartProducts.innerHTML += `<div class="product">
+            let quantity = 0;
+            response
+                .data
+                .reverse()
+                .map(async function (cartItem) {
+                    quantity += cartItem.quantity
+                    async function getProduct(id) {
+                        const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        const product = response.data
+                        cartProducts.innerHTML += `<div class="product">
                 <div class="product-left">
                     <div class="product-img">
                         <img src="${product.image}" alt="">
@@ -314,15 +330,15 @@ try {
                         </div>
                     </div>
                 </div>
-                <div class="delete-product" onClick="addToCart(event, ${product.id})"><i class="fa-solid fa-x"></i></div>
+                <div class="delete-product" onClick="removeItem(event, ${product.id})"><i class="fa-solid fa-x"></i></div>
             </div>`;
-                        }
-                        getProduct(cartItem.product_id)
-                    })
-                cartBadge.innerText = quantity
-            } catch (error) {
-                console.log(error)
-            }
+                    }
+                    getProduct(cartItem.product_id)
+                })
+            cartBadge.innerText = quantity
+        } catch (error) {
+            console.log(error)
         }
+    }
 
-        displayCartItems()
+    displayCartItems()

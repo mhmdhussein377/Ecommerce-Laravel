@@ -5,6 +5,10 @@ nav div:first-child {
     color: black !important;
 }
 
+.favorites-section {
+    margin-top: 90px;
+}
+
 .favorites {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
