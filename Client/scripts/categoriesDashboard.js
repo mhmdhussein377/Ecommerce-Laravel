@@ -14,7 +14,6 @@ const categoryCreated = document.querySelector(".category-created")
 const categoryDeleted = document.querySelector(".category-deleted");
 const categoryUpdated = document.querySelector(".category-updated")
 
-
 // direct the user to the login if he is not an admin
 const user_role_id = JSON
     .parse(localStorage.getItem("user"))
@@ -24,8 +23,25 @@ if (user_role_id !== 2) {
     window.location.href = "./../index.html";
 }
 
+// display categories in the select
+async function displayCategories() {
+    try {
+        const token = localStorage.getItem("token")
+        const response = await axios.get(`http://127.0.0.1:8000/api/categories`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const categories = response.data
+        console.log(categories)
+        categories.map(category => (updateSelect.innerHTML += `<option value="${category.id}">${category.category_name}</option>`))
+        categories.map((category) => (deleteSelect.innerHTML += `<option value="${category.id}">${category.category_name}</option>`));
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-
+displayCategories()
 
 deleteButton.addEventListener("click", () => {
     confirmDeleteModal
@@ -55,6 +71,7 @@ createCategoryBox.addEventListener('submit', async(e) => {
             }
         });
 
+        displayCategories()
         categoryNameCreate.value = ""
         categoryCreated
             .classList
@@ -77,15 +94,17 @@ deleteCategoryForm.addEventListener("submit", (e) => {
 
 acceptDeleteButton.addEventListener("click", async() => {
 
-    const category = deleteSelect.value;
+    const categoryID = deleteSelect.value;
     const token = localStorage.getItem("token")
 
     try {
-        const response = await axios.delete("http://127.0.0.1:8000/api/delete_category/1", {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/delete_category/${categoryID}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
+
+        displayCategories()
         confirmDeleteModal
             .classList
             .add("hide")
@@ -100,8 +119,6 @@ acceptDeleteButton.addEventListener("click", async() => {
     } catch (error) {
         console.log(error)
     }
-
-    console.log(category)
 })
 
 // update category
@@ -113,13 +130,15 @@ updateCategoryForm.addEventListener('submit', async(e) => {
     let token = localStorage.getItem("token")
 
     try {
-        let response = await axios.put("http://127.0.0.1:8000/api/update_category/5", {
+        let response = await axios.put(`http://127.0.0.1:8000/api/update_category/${categoyrID}`, {
             category_name: categoryName
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
+
+        displayCategories()
         updateCategoryNameInput.value = ""
         categoryUpdated
             .classList

@@ -10,8 +10,7 @@ if(user_role_id !== 2) {
 }
 
 
-
-
+// logout functionality
 logout.addEventListener("click", async() => {
     try {
         localStorage.removeItem("token");
