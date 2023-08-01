@@ -4,7 +4,26 @@ const cartSidebar = document.querySelector(".cart-sidebar");
 const closeSidebarButton = document.querySelector(".cart-sidebar .close-button");
 const cartProducts = document.querySelector(".cart-sidebar .products");
 const logout = document.querySelector(".logout")
+const toggleButton = document.querySelector(".toggle-button");
+const rightButtonsSM = document.querySelector(".right-buttons-sm");
+const closeButton = document.querySelector(".right-buttons-sm .close");
 const cartBadge = document.querySelector(".cart-badge")
+
+// direct the user to the login page if the token is expired
+const token = localStorage.getItem("token");
+
+const parseJwt = (token) => {
+    const decode = JSON.parse(atob(token.split(".")[1]));
+    console.log(decode);
+    if (decode.exp * 1000 < new Date().getTime()) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "./../index.html";
+        console.log("Time Expired");
+    }
+};
+
+parseJwt(token);
 
 logout.addEventListener("click", async() => {
     try {
@@ -24,6 +43,18 @@ cart.addEventListener("click", function () {
 
 closeSidebarButton.addEventListener("click", function () {
     cartSidebar
+        .classList
+        .add("hide");
+});
+
+toggleButton.addEventListener("click", () => {
+    rightButtonsSM
+        .classList
+        .remove("hide");
+});
+
+closeButton.addEventListener("click", () => {
+    rightButtonsSM
         .classList
         .add("hide");
 });
@@ -106,6 +137,7 @@ async function displayCartItems() {
         let quantity = 0
         response
             .data
+            .reverse()
             .map(async function (cartItem) {
                 quantity += cartItem.quantity
                 async function getProduct(id) {
@@ -137,7 +169,7 @@ async function displayCartItems() {
                 }
                 getProduct(cartItem.product_id);
             });
-            cartBadge.innerText = quantity
+        cartBadge.innerText = quantity
     } catch (error) {
         console.log(error);
     }
@@ -226,6 +258,7 @@ function displayFavoriteItems() {
                     console.log(isInCartArray);
                     response
                         .data
+                        .reverse()
                         .forEach(async(product, index) => {
                             const productData = await getProduct(product.product_id);
                             favoritesElement.innerHTML += `<div class="card">

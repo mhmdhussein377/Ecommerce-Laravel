@@ -18,6 +18,22 @@ if (user_role_id !== 2) {
     window.location.href = "./../index.html";
 }
 
+// direct the user to the login page if the token is expired
+const token = localStorage.getItem("token");
+
+const parseJwt = (token) => {
+    const decode = JSON.parse(atob(token.split(".")[1]));
+    console.log(decode);
+    if (decode.exp * 1000 < new Date().getTime()) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "./../index.html";
+        console.log("Time Expired");
+    }
+};
+
+parseJwt(token);
+
 
 
 uploadImageButton.addEventListener("click", () => {

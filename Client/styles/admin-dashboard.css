@@ -1,14 +1,18 @@
+body {
+    margin-bottom: 40px;
+}
+
 /* ABSOUTE BUTTONS */
 
 .absolute-buttons {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 40px;
+    padding: 20px;
 }
 
 .absolute-buttons .right {

@@ -10,6 +10,23 @@ if(user_role_id !== 2) {
 }
 
 
+// direct the user to the login page if the token is expired
+const token = localStorage.getItem("token");
+
+const parseJwt = (token) => {
+    const decode = JSON.parse(atob(token.split(".")[1]));
+    console.log(decode);
+    if (decode.exp * 1000 < new Date().getTime()) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "./../index.html";
+        console.log("Time Expired");
+    }
+};
+
+parseJwt(token);
+
+
 // logout functionality
 logout.addEventListener("click", async() => {
     try {
@@ -31,7 +48,7 @@ try {
         });
 
         categories
-            .data
+            .data.reverse()
             .map(async function (category) {
                 let response = await axios.get(`http://127.0.0.1:8000/api/category/${category.id}`, {
                     headers: {

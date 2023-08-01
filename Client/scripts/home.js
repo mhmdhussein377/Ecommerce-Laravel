@@ -4,9 +4,25 @@ const closeSidebarButton = document.querySelector(".cart-sidebar .close-button")
 const logout = document.querySelector(".logout")
 const categoriesElement = document.querySelector(".categories");
 const cartProducts = document.querySelector(".cart-sidebar .products");
+const toggleButton = document.querySelector(".toggle-button");
+const rightButtonsSM = document.querySelector(".right-buttons-sm");
+const closeButton = document.querySelector(".right-buttons-sm .close");
 const cartBadge = document.querySelector('.cart-badge')
 
 const token = localStorage.getItem("token")
+
+const parseJwt = (token) => {
+    const decode = JSON.parse(atob(token.split(".")[1]));
+    console.log(decode);
+    if (decode.exp * 1000 < new Date().getTime()) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "./../index.html";
+        console.log("Time Expired");
+    }
+};
+
+parseJwt(token)
 
 if (!token) {
     window.location.href = "./../index.html"
@@ -24,6 +40,18 @@ closeSidebarButton.addEventListener("click", function () {
         .classList
         .add('hide')
 })
+
+toggleButton.addEventListener("click", () => {
+    rightButtonsSM
+        .classList
+        .remove("hide");
+});
+
+closeButton.addEventListener("click", () => {
+    rightButtonsSM
+        .classList
+        .add("hide");
+});
 
 logout.addEventListener("click", async() => {
     try {
@@ -103,9 +131,9 @@ try {
             }
         });
 
-
         categories
             .data
+            .reverse()
             .map(async function (category) {
                 let response = await axios.get(`http://127.0.0.1:8000/api/category/${category.id}`, {
                     headers: {
@@ -213,10 +241,6 @@ try {
         // decrement the quantity
         async function decrementQuantity(product_id, quantity) {
             try {
-                console.log('hello')
-                console.log(quantity)
-                console.log("product id")
-                console.log(product_id)
                 if (quantity > 1) {
                     console.log("hello")
                     const token = localStorage.getItem("token");
@@ -243,7 +267,6 @@ try {
             }
         }
 
-
         // displaying the cart items in the cart sidebar
 
         async function displayCartItems() {
@@ -263,6 +286,7 @@ try {
                 let quantity = 0;
                 response
                     .data
+                    .reverse()
                     .map(async function (cartItem) {
                         quantity += cartItem.quantity
                         async function getProduct(id) {
@@ -272,7 +296,7 @@ try {
                                 }
                             });
                             const product = response.data
-                                cartProducts.innerHTML += `<div class="product">
+                            cartProducts.innerHTML += `<div class="product">
                 <div class="product-left">
                     <div class="product-img">
                         <img src="${product.image}" alt="">
@@ -292,13 +316,13 @@ try {
                 </div>
                 <div class="delete-product" onClick="addToCart(event, ${product.id})"><i class="fa-solid fa-x"></i></div>
             </div>`;
-                            }
-                            getProduct(cartItem.product_id)
-                        })
-                        cartBadge.innerText = quantity
-                } catch (error) {
-                    console.log(error)
-                }
+                        }
+                        getProduct(cartItem.product_id)
+                    })
+                cartBadge.innerText = quantity
+            } catch (error) {
+                console.log(error)
             }
+        }
 
-            displayCartItems()
+        displayCartItems()

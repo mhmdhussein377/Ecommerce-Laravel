@@ -3,6 +3,7 @@ nav div:first-child {
 }
 
 .hero {
+    margin-top: 100px;
     display: flex;
     align-items: center;
     /* flex-direction: column; */
@@ -118,6 +119,7 @@ nav div:first-child {
         flex-direction: column;
         text-align: center;
         margin: auto;
+        margin-top: 100px;
     }
 
     .hero .buttons, .hero .features {
@@ -243,6 +245,7 @@ nav div:first-child {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+    padding: 0 20px;
 }
 
 .cards .card {
@@ -346,4 +349,81 @@ nav div:first-child {
 
 .card-img img {
     width: 150px;
+}
+
+.toggle-button {
+    display: none;
+    cursor: pointer;
+}
+
+.right-buttons-sm {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-color);
+}
+
+.right-buttons-sm.hide {
+    display: none;
+}
+
+.right-buttons-sm .close {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-color: black;
+    color: white;
+}
+
+.right-buttons-sm button {
+    background-color: transparent;
+    color: var(--main-color);
+    font-size: 1.875rem;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+}
+
+.right-buttons-sm div:nth-child(2) button {
+    font-weight: bold;
+}
+
+.right-buttons-sm div:nth-child(3) button {
+    color: black;
+}
+
+@media (max-width: 750px) {
+
+    .toggle-button {
+        display: block;
+
+    }
+
+    nav {
+        background-color: red;
+        display: none;
+    }
+
+    nav > div {
+        display: none;
+    }
 }
